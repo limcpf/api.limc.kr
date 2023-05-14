@@ -108,7 +108,7 @@
 		<dependency>
 			<artifactId>h2</artifactId>
 			<groupId>com.h2database</groupId>
-			<scope>test</scope>
+			<scope>runtime</scope>
 			<version>2.1.214</version>
 		</dependency>
 	</dependencies>

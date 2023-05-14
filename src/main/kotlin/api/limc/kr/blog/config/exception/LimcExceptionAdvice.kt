@@ -12,7 +12,7 @@ class LimcExceptionAdvice {
     fun handleBadRequestException(e: LimcException): ResponseEntity<Any> {
         val body:MutableMap<String,Any> = LinkedHashMap()
         body["errorCode"] = e.code
-        body["message"] = e.desc
+        body["message"] = e.message
         body["timestamp"] = LocalDateTime.now().toString()
 
         return ResponseEntity(body, HttpStatus.valueOf(e.status.value()))

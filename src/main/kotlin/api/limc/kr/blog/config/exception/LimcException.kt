@@ -7,11 +7,11 @@ class LimcException(responseCode: ResponseCode) : RuntimeException() {
 
     val status: HttpStatus
     val code:String
-    val desc:String
+    override val message:String
 
     init {
         status = responseCode.status
         code = responseCode.code
-        desc = responseCode.desc
+        message = responseCode.message
     }
 }
