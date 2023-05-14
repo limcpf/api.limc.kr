@@ -1,6 +1,5 @@
-package api.limc.kr.blog.respository
+package api.limc.kr.blog.domain.site
 
-import api.limc.kr.blog.domain.Site
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

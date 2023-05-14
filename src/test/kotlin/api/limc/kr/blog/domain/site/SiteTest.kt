@@ -1,8 +1,6 @@
-package api.limc.kr.blog.domain
+package api.limc.kr.blog.domain.site
 
 import api.limc.kr.blog.config.exception.LimcException
-import api.limc.kr.blog.config.exception.enums.SiteResponseCode
-import api.limc.kr.blog.respository.SiteRepository
 import api.limc.kr.blog.shared.LimcTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Order

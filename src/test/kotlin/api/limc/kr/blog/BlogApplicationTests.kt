@@ -2,7 +2,7 @@ package api.limc.kr.blog
 
 import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.LimcExceptionAdvice
-import api.limc.kr.blog.config.exception.enums.SiteResponseCode
+import api.limc.kr.blog.domain.site.SiteResponseCode
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

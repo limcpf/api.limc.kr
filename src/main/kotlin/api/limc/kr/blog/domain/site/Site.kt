@@ -1,24 +1,25 @@
-package api.limc.kr.blog.domain
+package api.limc.kr.blog.domain.site
 
 import api.limc.kr.blog.config.exception.LimcException
-import api.limc.kr.blog.config.exception.enums.SiteResponseCode
+import api.limc.kr.blog.domain.BaseTimeEntity
+import api.limc.kr.blog.domain.site.dto.SiteDto
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import jakarta.persistence.Table
 
 @Entity
-@Table(name = "Site")
 class Site(name: String?) : BaseTimeEntity() {
     @Id
     @Column(length = 5)
-    var name: String? = validId(name)
-        set(value) { field = validId(value) }
+    var name: String = validName(name)
+        set(value) { field = validName(value) }
 
-    private fun validId(v: String?): String {
+    private fun validName(v: String?): String {
         if(v.isNullOrEmpty()) throw LimcException(SiteResponseCode.INVALID_NAME_PARAMETER)
         return v.uppercase()
     }
+
+    fun toDto(): SiteDto = SiteDto(this.name, this.createdAt, this.updatedAt)
 
     override fun toString(): String {
         return """
