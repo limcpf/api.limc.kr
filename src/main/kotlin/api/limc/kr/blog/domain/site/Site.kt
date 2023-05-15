@@ -1,6 +1,7 @@
 package api.limc.kr.blog.domain.site
 
 import api.limc.kr.blog.config.exception.LimcException
+import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.BaseTimeEntity
 import api.limc.kr.blog.domain.site.dto.SiteDto
 import jakarta.persistence.Column
@@ -15,7 +16,7 @@ class Site(name: String?) : BaseTimeEntity() {
         set(value) { field = validName(value) }
 
     private fun validName(v: String?): String {
-        if(v.isNullOrEmpty()) throw LimcException(SiteResponseCode.INVALID_NAME_PARAMETER)
+        if(v.isNullOrEmpty()) throw LimcException(LimcResponseCode.INVALID_NAME_PARAMETER)
         return v.uppercase()
     }
 

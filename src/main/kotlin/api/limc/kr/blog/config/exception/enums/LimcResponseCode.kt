@@ -4,4 +4,5 @@ import org.springframework.http.HttpStatus
 
 enum class LimcResponseCode(override val status: HttpStatus, override val code: String, override val message: String): ResponseCode {
     NOT_FOUND(HttpStatus.NOT_FOUND, "NOT_FOUND", "존재하지 않습니다."),
+    INVALID_NAME_PARAMETER(HttpStatus.BAD_REQUEST, "INVALID_NAME_PARAMETER", "올바르지 않은 이름입니다."),
 }

@@ -1,6 +1,7 @@
 package api.limc.kr.blog.domain.site
 
 import api.limc.kr.blog.config.exception.LimcException
+import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.shared.LimcTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Order
@@ -25,15 +26,22 @@ class SiteTest {
         Assertions.assertNotNull(isValidSite)
 
         Assertions.assertThrowsExactly(
-            LimcException(SiteResponseCode.INVALID_NAME_PARAMETER)::class.java
+            LimcException(LimcResponseCode.INVALID_NAME_PARAMETER)::class.java
         ) {
             Site("")
         }
 
         Assertions.assertThrowsExactly(
-            LimcException(SiteResponseCode.INVALID_NAME_PARAMETER)::class.java
+            LimcException(LimcResponseCode.INVALID_NAME_PARAMETER)::class.java
         ) {
             Site(null)
+        }
+
+        Assertions.assertThrowsExactly(
+            LimcException(LimcResponseCode.INVALID_NAME_PARAMETER)::class.java
+        ) {
+            val site = Site("LIM")
+            site.name = ""
         }
     }
 
@@ -53,7 +61,7 @@ class SiteTest {
         val name: String? = null
 
         Assertions.assertThrowsExactly(
-            LimcException(SiteResponseCode.INVALID_NAME_PARAMETER)::class.java
+            LimcException(LimcResponseCode.INVALID_NAME_PARAMETER)::class.java
         ) {
             repository.save(Site(name))
         }
