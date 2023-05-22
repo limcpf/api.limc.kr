@@ -9,15 +9,11 @@ import api.limc.kr.blog.domain.topic.Topic
 import jakarta.persistence.*
 
 @Entity
-class Series(id:Long?, topic: Topic, title:String):BaseTimeEntity() {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = id
-
-    @ManyToOne
-    @JoinColumn(name = "topic_id")
-    var topic: Topic = topic
-
+class Series(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id:Long?,
+    @ManyToOne @JoinColumn val topic: Topic,
+    title:String
+):BaseTimeEntity() {
     @Column(length = 255, unique = true)
     var title: String = validTitle(title)
         set(value) { field = validTitle(value) }

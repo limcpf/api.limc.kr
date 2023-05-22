@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest
 class BlogApplicationTests {
 
 	@Test
-	fun contextLoads() {
-	}
+	fun contextLoads() { println("wow") }
+
 
 	@Test
 	fun customExceptionTest() {

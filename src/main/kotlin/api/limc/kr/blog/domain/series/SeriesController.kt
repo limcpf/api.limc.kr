@@ -20,15 +20,15 @@ class SeriesController(private val service: SeriesService) {
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
     ): Page<SeriesDto> = service.findAll(page)
 
-    @GetMapping(path = ["/topic/:id"])
+    @GetMapping(path = ["/topic/{id}"])
    fun findAllByTopic(
-       @PathVariable("id") id:Long,
+       @PathVariable(value = "id") id:Long,
        @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
    ): Page<SeriesListDto> = service.findAllByTopic(id, page)
 
     @PatchMapping
     fun update(@RequestBody dto: SeriesListDto): SeriesDto = service.update(dto)
 
-    @DeleteMapping(path = ["/:id"])
+    @DeleteMapping(path = ["/{id}"])
     fun delete(@PathVariable("id") id:Long) = service.delete(id)
 }

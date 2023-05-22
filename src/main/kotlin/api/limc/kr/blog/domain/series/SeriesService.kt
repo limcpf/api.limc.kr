@@ -26,7 +26,7 @@ class SeriesService(private val repository: SeriesRepository) {
     fun findAll(page: Pageable): Page<SeriesDto> = repository.findAll(page).map { it.toDto() }
 
     fun findAllByTopic(id: Long, page: Pageable): Page<SeriesListDto>
-        = repository.findAllByTopic(id, page).map { it.toListDto() }
+        = repository.findAllByTopic(getTopic(id), page).map { it.toListDto() }
 
     private fun getTopic(id:Long?): Topic = topicService.getTopic(id)
     fun update(dto: SeriesListDto): SeriesDto {

@@ -15,4 +15,4 @@ import java.lang.annotation.Inherited
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
 @Inherited
-annotation class LimcTest()
+annotation class LimcTest

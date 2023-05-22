@@ -12,7 +12,7 @@ class TopicController(val service: TopicService) {
     @PostMapping
     fun save(@RequestBody dto: TopicDto) = service.save(dto)
 
-    @GetMapping(path = ["/:id"])
+    @GetMapping(path = ["/{id}"])
     fun findById(@PathVariable("id") id:Long) = service.findById(id)
 
     @GetMapping
@@ -24,6 +24,6 @@ class TopicController(val service: TopicService) {
     @PatchMapping
     fun update(@RequestBody dto: TopicDto) = service.update(dto)
 
-    @DeleteMapping(path = ["/:id"])
-    fun delete(@PathVariable("id") id:Long) = service.delete(id)
+    @DeleteMapping(path = ["/{id}"])
+    fun delete(@PathVariable(value = "id") id:Long) = service.delete(id)
 }

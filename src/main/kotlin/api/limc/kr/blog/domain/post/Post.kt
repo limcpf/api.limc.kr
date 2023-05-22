@@ -8,32 +8,10 @@ import jakarta.persistence.*
 
 @Entity
 class Post(
-    id: Long?,
-    site: Site,
-    topic: Topic,
-    series: Series?,
-    title: String,
-    content: String
-):BaseTimeEntity() {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = id
-
-    @ManyToOne
-    @JoinColumn(name="site_id")
-    val site:Site = site
-
-    @ManyToOne
-    @JoinColumn(name = "topic_id")
-    val topic: Topic = topic
-
-    @ManyToOne
-    @JoinColumn(name = "series_id")
-    val series:Series? = series
-
-    @Column(length = 255)
-    val title: String = title
-
-    @Lob
-    val content: String = content
-}
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
+    @ManyToOne @JoinColumn val site: Site,
+    @ManyToOne @JoinColumn val topic: Topic,
+    @ManyToOne @JoinColumn val series: Series?,
+    @Column(length = 255) val title: String,
+    @Lob val content: String
+):BaseTimeEntity()

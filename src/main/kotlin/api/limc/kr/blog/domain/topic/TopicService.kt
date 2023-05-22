@@ -34,7 +34,7 @@ class TopicService(val repository: TopicRepository) {
 
         // 해당 경우는 빈도수가 낮을것으로 추측함
         if (topic.site.name != dto.site.name) { // site name 이 변경되는 경우
-            var site: Site
+            val site: Site
             try {
                 /**
                  * dto 의 site 이름으로 site domain 을 조회한다.

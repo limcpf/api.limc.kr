@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 @LimcTest
-class TopicTest() {
+class TopicTest {
     @Autowired lateinit var siteRepository: SiteRepository
     lateinit var site:Site
     @BeforeAll
