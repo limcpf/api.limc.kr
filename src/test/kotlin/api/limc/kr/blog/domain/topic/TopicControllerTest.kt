@@ -37,9 +37,27 @@ class TopicControllerTest {
     @Test
     @Order(1)
     fun findAllBySite() {
-        val site = "DEV"
-        val topics = controller.findAll(site, PageRequest.of(0, Pages.TOPIC_PAGE_NUM.value))
+        val siteName = "DEV"
+
+        /** topic 10개 생성 */
+        for(i: Int in 1..10) {
+            val topicDto = TopicDto(site, "test Topic${i}")
+            controller.save(topicDto)
+        }
+
+        val topics = controller.findAll(siteName, PageRequest.of(0, Pages.TOPIC_PAGE_NUM.value))
 
         Assertions.assertTrue(!topics.isEmpty)
+        Assertions.assertTrue(topics.size == 10) // topics 의 사이즈가 10 이어야함
+    }
+
+    @Test
+    @Order(1)
+    fun findById() {
+        val id = this.topic.id ?: throw NoSuchElementException("topicDto 미생성")
+
+        val topicDto = controller.findById(id)
+
+        Assertions.assertNotNull(topicDto)
     }
 }

@@ -20,4 +20,10 @@ class TopicController(val service: TopicService) {
         @RequestParam("site") site:String,
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page:Pageable
     ) = service.findAllBySite(site, page)
+
+    @PatchMapping
+    fun update(@RequestBody dto: TopicDto) = service.update(dto)
+
+    @DeleteMapping(path = ["/:id"])
+    fun delete(@PathVariable("id") id:Long) = service.delete(id)
 }

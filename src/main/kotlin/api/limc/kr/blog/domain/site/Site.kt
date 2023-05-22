@@ -10,6 +10,8 @@ import jakarta.persistence.Id
 
 @Entity
 class Site(name: String?) : BaseTimeEntity() {
+    constructor(dto: SiteDto) : this(dto.name)
+
     @Id
     @Column(length = 5)
     var name: String = validName(name)
