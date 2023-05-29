@@ -21,7 +21,7 @@ class SiteServiceTest(@Autowired val service: SiteService) {
     fun findByIdTest() {
         val name = this.name
 
-        val site = service.findById(name)
+        val site = service.findByName(name)
 
         Assertions.assertNotNull(site)
     }
@@ -31,7 +31,7 @@ class SiteServiceTest(@Autowired val service: SiteService) {
         Assertions.assertThrowsExactly(
             LimcException(LimcResponseCode.NOT_FOUND)::class.java
         ) {
-            service.findById("")
+            service.findByName("")
         }
     }
 }

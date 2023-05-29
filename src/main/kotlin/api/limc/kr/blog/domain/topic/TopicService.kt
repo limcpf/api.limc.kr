@@ -56,7 +56,7 @@ class TopicService(val repository: TopicRepository) {
 
     fun delete(id: Long) = repository.deleteById(id)
 
-    private fun getSite(name: String): Site = siteService.findById(name)
+    private fun getSite(name: String): Site = siteService.findByName(name)
 
     fun getTopic(id: Long?): Topic {
         if (id == null) throw LimcException(LimcResponseCode.INVALID_ID_PARAMETER)

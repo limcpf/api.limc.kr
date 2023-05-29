@@ -47,4 +47,9 @@ class SeriesService(private val repository: SeriesRepository) {
 
     fun delete(id: Long) = repository.deleteById(id)
 
+    fun getSeries(id:Long?): Series {
+        if (id == null) throw LimcException(LimcResponseCode.INVALID_ID_PARAMETER)
+        return repository.findById(id).orElseThrow { LimcException(LimcResponseCode.NOT_FOUND) }
+    }
+
 }
