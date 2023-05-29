@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 @LimcTest
-class SiteControllerTest {
-    @Autowired lateinit var controller: SiteController
+class SitePrivateControllerTest {
+    @Autowired lateinit var controller: SitePrivateController
 
     val name = "DEV"
     @Test

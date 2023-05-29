@@ -64,6 +64,10 @@
 	</build>
 	<dependencies>
 		<dependency>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<groupId>org.springframework.boot</groupId>
+		</dependency>
+		<dependency>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<groupId>org.springframework.boot</groupId>
 		</dependency>
@@ -83,7 +87,11 @@
 			<artifactId>kotlin-stdlib-jdk8</artifactId>
 			<groupId>org.jetbrains.kotlin</groupId>
 		</dependency>
-
+		<dependency>
+			<artifactId>jjwt</artifactId>
+			<groupId>io.jsonwebtoken</groupId>
+			<version>0.9.1</version>
+		</dependency>
 		<dependency>
 			<artifactId>spring-boot-devtools</artifactId>
 			<groupId>org.springframework.boot</groupId>

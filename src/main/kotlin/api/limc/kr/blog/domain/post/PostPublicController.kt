@@ -1,18 +1,18 @@
 package api.limc.kr.blog.domain.post
 
-import api.limc.kr.blog.domain.post.dto.PostDto
 import api.limc.kr.blog.domain.post.dto.PostInfoDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(path = ["/post"])
-class PostController(private val service: PostService) {
-
-    @PostMapping fun save(@RequestBody dto: PostDto) = service.save(dto)
+@RequestMapping(path = ["/public/post"])
+class PostPublicController(private val service: PostService) {
     @GetMapping(path = ["/{id}"])
     fun findById(@PathVariable(name = "id") id: Long) = service.findById(id)
     @GetMapping(path = ["/site/{name}"])
@@ -36,10 +36,4 @@ class PostController(private val service: PostService) {
     ): Page<PostInfoDto> {
         return service.findAllBySeries(id, page)
     }
-
-    @PatchMapping
-    fun update(@RequestBody dto: PostDto) = service.update(dto)
-
-    @DeleteMapping(path = ["/{id}"])
-    fun delete(@PathVariable(name = "id") id:Long) = service.delete(id)
 }

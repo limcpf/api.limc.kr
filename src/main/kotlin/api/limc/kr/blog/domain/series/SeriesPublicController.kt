@@ -6,15 +6,14 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.web.PageableDefault
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(path = ["/series"])
-class SeriesController(private val service: SeriesService) {
-
-    @PostMapping
-    fun save(@RequestBody seriesDto: SeriesDto): SeriesDto = service.save(seriesDto)
-
+@RequestMapping(path = ["/public/series"])
+class SeriesPublicController(private val service: SeriesService) {
     @GetMapping
     fun findAll(
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
@@ -28,10 +27,4 @@ class SeriesController(private val service: SeriesService) {
 
     @GetMapping(path = ["/{id}"])
     fun findById(@PathVariable(value = "id") id:Long) = service.findById(id)
-
-    @PatchMapping
-    fun update(@RequestBody dto: SeriesListDto): SeriesDto = service.update(dto)
-
-    @DeleteMapping(path = ["/{id}"])
-    fun delete(@PathVariable("id") id:Long) = service.delete(id)
 }
