@@ -5,6 +5,7 @@ import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.BaseTimeEntity
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.topic.dto.TopicDto
+import api.limc.kr.blog.domain.topic.dto.TopicInfoDto
 import jakarta.persistence.*
 
 @Entity
@@ -25,5 +26,6 @@ class Topic(
     }
 
     fun toDto() = TopicDto(id, site.toDto(), name)
+    fun toInfoDto() = TopicInfoDto(this)
     constructor(dto:TopicDto): this(dto.id, Site(dto.site), dto.name)
 }

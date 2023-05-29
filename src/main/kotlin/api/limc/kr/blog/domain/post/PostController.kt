@@ -1,6 +1,7 @@
 package api.limc.kr.blog.domain.post
 
 import api.limc.kr.blog.domain.post.dto.PostDto
+import api.limc.kr.blog.domain.post.dto.PostInfoDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -18,21 +19,21 @@ class PostController(private val service: PostService) {
     fun findAllBySite(
         @PathVariable(name = "name") name: String,
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
-    ): Page<Post> {
+    ): Page<PostInfoDto> {
         return service.findAllBySite(name, page)
     }
     @GetMapping(path = ["/topic/{id}"])
     fun findAllByTopic(
         @PathVariable(name = "id") id: Long,
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
-    ): Page<Post> {
+    ): Page<PostInfoDto> {
         return service.findAllByTopic(id, page)
     }
     @GetMapping(path = ["/series/{id}"])
     fun findAllBySeries(
         @PathVariable(name = "id") id: Long,
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
-    ): Page<Post> {
+    ): Page<PostInfoDto> {
         return service.findAllBySeries(id, page)
     }
 

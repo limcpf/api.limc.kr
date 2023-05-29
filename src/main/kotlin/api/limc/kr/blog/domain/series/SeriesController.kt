@@ -26,6 +26,9 @@ class SeriesController(private val service: SeriesService) {
        @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
    ): Page<SeriesListDto> = service.findAllByTopic(id, page)
 
+    @GetMapping(path = ["/{id}"])
+    fun findById(@PathVariable(value = "id") id:Long) = service.findById(id)
+
     @PatchMapping
     fun update(@RequestBody dto: SeriesListDto): SeriesDto = service.update(dto)
 
