@@ -17,7 +17,7 @@ class AdminControllerTests {
     @Test
     @Order(0)
     fun saveTest() {
-        val reqDto:AdminDto = AdminDto(null, "test", password)
+        val reqDto = AdminDto(null, "test", password)
 
         val resDto:AdminDto = adminController.save(reqDto)
 
@@ -59,7 +59,7 @@ class AdminControllerTests {
         println(loginDto)
 
         Assertions.assertNotNull(loginDto)
-        loginDto.body?.accessToken?.isNullOrBlank()?.let { Assertions.assertTrue(it) }
+        loginDto.body?.accessToken.isNullOrBlank()?.let { Assertions.assertTrue(it) }
     }
 
     @Test
