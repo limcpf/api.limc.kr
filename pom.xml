@@ -93,6 +93,21 @@
 			<version>0.9.1</version>
 		</dependency>
 		<dependency>
+			<artifactId>jaxb-core</artifactId>
+			<groupId>com.sun.xml.bind</groupId>
+			<version>4.0.2</version>
+		</dependency>
+		<dependency>
+			<artifactId>jaxb-impl</artifactId>
+			<groupId>com.sun.xml.bind</groupId>
+			<version>4.0.2</version>
+		</dependency>
+		<dependency>
+			<artifactId>jaxb-api</artifactId>
+			<groupId>javax.xml.bind</groupId>
+			<version>2.3.1</version>
+		</dependency>
+		<dependency>
 			<artifactId>spring-boot-devtools</artifactId>
 			<groupId>org.springframework.boot</groupId>
 			<optional>true</optional>

@@ -34,10 +34,9 @@ class JwtAuthenticationFilter:OncePerRequestFilter() {
                 val authenticationToken = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
                 authenticationToken.details = WebAuthenticationDetailsSource().buildDetails(request)
                 SecurityContextHolder.getContext().authentication = authenticationToken
-            }
+            } else throw Exception()
         } catch (e: Exception) {
-            e.printStackTrace()
-            throw LimcException(LimcResponseCode.NOT_FOUND)
+            throw LimcException(LimcResponseCode.INVALID_TOKEN)
         }
         filterChain.doFilter(request, response)
     }

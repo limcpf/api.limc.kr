@@ -37,9 +37,7 @@ class JwtTokenService {
         }
 
         val aDto: AdminDto = admin.toDto()
-
-        val token = UsernamePasswordAuthenticationToken(aDto.id, aDto.password)
-
+        val token = UsernamePasswordAuthenticationToken(adminDto.name, adminDto.password)
         try {
             authenticationManager.authenticate(token)
         } catch (e: AuthenticationException) {
