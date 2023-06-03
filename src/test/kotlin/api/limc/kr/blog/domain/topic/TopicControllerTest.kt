@@ -87,7 +87,7 @@ class TopicControllerTest {
     fun update() {
         val updatedName = "Updated"
         val dto = TopicDto(topicDto?.id, site, updatedName)
-        val url = "$basePrivateUrl"
+        val url = basePrivateUrl
         var result: TopicDto? = null
 
         mockMvc

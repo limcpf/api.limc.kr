@@ -26,7 +26,7 @@ object TestUtil {
     fun <T> getMvcResult2Obj(result: MvcResult, to: Class<T>): T? {
         val r = result.response
 
-        if (r.status != 200 || r.contentAsString.isNullOrBlank()) return null
+        if (r.status != 200 || r.contentAsString.isBlank()) return null
 
         return objectMapper.readValue(result.response.contentAsString, to)
     }
