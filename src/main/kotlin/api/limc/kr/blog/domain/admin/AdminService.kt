@@ -16,4 +16,8 @@ class AdminService(private val repository: AdminRepository) {
 
         return admin.toDto()
     }
+
+    fun deleteAllForTest() {
+        repository.deleteAll()
+    }
 }

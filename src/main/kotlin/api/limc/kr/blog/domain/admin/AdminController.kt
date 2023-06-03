@@ -27,4 +27,6 @@ class AdminController(private val service:AdminService) {
 
     @PostMapping(path = ["/public/user"])
     fun save(@RequestBody adminDto: AdminDto):AdminDto = service.save(adminDto)
+
+    fun deleteAllForTest():Unit = service.deleteAllForTest()
 }

@@ -4,10 +4,7 @@ import api.limc.kr.blog.domain.admin.AdminController
 import api.limc.kr.blog.domain.site.dto.SiteDto
 import api.limc.kr.blog.shared.LimcTest
 import api.limc.kr.blog.shared.TestUtil
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Order
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.test.web.servlet.MockMvc
@@ -28,6 +25,10 @@ class SitePrivateControllerTest {
         accessToken = TestUtil.login(adminController)
     }
 
+    @AfterAll
+    fun init() {
+        adminController.deleteAllForTest()
+    }
 
     @Test
     @Order(0)

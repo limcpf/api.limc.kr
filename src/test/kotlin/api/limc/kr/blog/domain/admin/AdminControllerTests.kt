@@ -4,6 +4,7 @@ import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.admin.dto.AdminDto
 import api.limc.kr.blog.shared.LimcTest
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
@@ -13,6 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired
 class AdminControllerTests {
     @Autowired private lateinit var adminController: AdminController
     val password = "testCode"
+
+    @AfterAll
+    fun init() {
+        adminController.deleteAllForTest()
+    }
 
     @Test
     @Order(0)
@@ -43,8 +49,6 @@ class AdminControllerTests {
         val reqDto = AdminDto(null, "test", password)
 
         val loginDto = adminController.login(reqDto)
-
-        println(loginDto)
 
         Assertions.assertNotNull(loginDto)
         loginDto.body?.accessToken?.isNotBlank()?.let { Assertions.assertTrue(it) }

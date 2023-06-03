@@ -16,6 +16,7 @@ object TestUtil {
         .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .modules(JavaTimeModule())
         .build()
+
     fun login(ac: AdminController): String {
         val adminDto = AdminDto(null, "id", "pw")
         ac.save(adminDto)
@@ -57,4 +58,6 @@ object TestUtil {
         = MockMvcRequestBuilders.delete(url)
             .contentType(MediaType.APPLICATION_JSON)
             .header("Authorization", token)
+
+
 }
