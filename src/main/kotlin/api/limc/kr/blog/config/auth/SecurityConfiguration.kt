@@ -29,12 +29,18 @@ class SecurityConfiguration {
     @Throws(Exception::class)
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http.authorizeHttpRequests()
-            .requestMatchers("/private/**").hasAnyRole("ADMIN")
-            .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/public/**")
+                .permitAll()
             .and()
-            .exceptionHandling().authenticationEntryPoint(unAuthenticatedHandler)
+                .authorizeHttpRequests()
+                .requestMatchers("/private/**")
+                .hasAnyRole("ADMIN")
             .and()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .exceptionHandling()
+                .authenticationEntryPoint(unAuthenticatedHandler)
+            .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
             .httpBasic().disable()
@@ -55,4 +61,5 @@ class SecurityConfiguration {
     fun encoder(): BCryptPasswordEncoder {
         return BCryptPasswordEncoder()
     }
+
 }

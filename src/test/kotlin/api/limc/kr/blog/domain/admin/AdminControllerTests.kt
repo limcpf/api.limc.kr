@@ -56,8 +56,6 @@ class AdminControllerTests {
         val reqDto = AdminDto(null, "test", "")
         val loginDto = adminController.logout(reqDto)
 
-        println(loginDto)
-
         Assertions.assertNotNull(loginDto)
         loginDto.body?.accessToken.isNullOrBlank()?.let { Assertions.assertTrue(it) }
     }
