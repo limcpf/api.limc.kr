@@ -106,7 +106,7 @@ class TopicControllerTest {
         var status: Int? = null
 
         mockMvc
-            .perform(TestUtil.delete(url, accessToken))
+            .perform(TestUtil.delete(url, ""))
             .andExpect { r:MvcResult -> status = r.response.status }
 
         Assertions.assertNotNull(status)

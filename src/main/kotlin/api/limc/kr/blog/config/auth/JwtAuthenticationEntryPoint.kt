@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component
 @Component
 class JwtAuthenticationEntryPoint:AuthenticationEntryPoint {
     override fun commence(request: HttpServletRequest, response: HttpServletResponse, authException: AuthenticationException) {
-        throw Exception()
-        //response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "토큰 만료")
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "만료된 토큰이거나 올바르지 않은 토큰입니다.")
     }
 }
