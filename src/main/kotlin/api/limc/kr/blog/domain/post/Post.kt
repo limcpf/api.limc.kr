@@ -15,7 +15,7 @@ class Post(
     @ManyToOne @JoinColumn var topic: Topic,
     @ManyToOne @JoinColumn var series: Series?,
     @Column(length = 255) var title: String,
-    @Lob var content: String
+    @Column(columnDefinition="TEXT") var content: String
 ):BaseTimeEntity() {
     fun toDto(): PostDto = PostDto(this)
     fun toInfoDto(): PostInfoDto = PostInfoDto(this)

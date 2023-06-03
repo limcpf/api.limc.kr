@@ -7,10 +7,7 @@ import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class JwtTokenManager {
-    @Value("\${JWT_SECRET_KEY}")
-    private lateinit var JWT_SECRET_KEY: String
-
+class JwtTokenManager(@Value("\${JWT_SECRET_KEY}") val JWT_SECRET_KEY: String) {
     fun getToken(adminDto: AdminDto, tokenType: Long): String = generateToken(adminDto.name, tokenType)
 
     private fun generateToken(sub: String, dueSec: Long): String {

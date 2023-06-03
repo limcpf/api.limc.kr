@@ -6,24 +6,20 @@ import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
-import org.springframework.stereotype.Service
+import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import java.io.IOException
 
 
-@Service
-class JwtAuthenticationFilter:OncePerRequestFilter() {
-    @Autowired
-    private lateinit var jwtTokenManager: JwtTokenManager
-    @Autowired
-    private lateinit var userDetailService: UserDetailServiceImpl
-    private val AUTHORIZATION_HEADER = "Authorization"
-
+@Component
+class JwtAuthenticationFilter(
+    val jwtTokenManager: JwtTokenManager,
+    val userDetailService: UserDetailServiceImpl
+):OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         try {
@@ -42,7 +38,8 @@ class JwtAuthenticationFilter:OncePerRequestFilter() {
     }
 
     private fun getTokenFromRequest(request: HttpServletRequest): String {
-        val bearerToken = request.getHeader(AUTHORIZATION_HEADER)
+        val bearerToken = request.getHeader("Authorization")
+        println(bearerToken)
         return if (!bearerToken.isNullOrBlank() && bearerToken.startsWith("Bearer ")) {
             bearerToken.substring(7)
         } else ""

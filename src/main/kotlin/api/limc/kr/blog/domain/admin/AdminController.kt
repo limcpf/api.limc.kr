@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class AdminController(private val service:AdminService) {
     @Autowired private lateinit var jwtTokenService:JwtTokenService
-    @GetMapping(path = ["/public/login"])
+    @PostMapping(path = ["/public/login"])
     fun login(@RequestBody adminDto: AdminDto):ResponseEntity<LoginDto> {
         val loginDto:LoginDto = jwtTokenService.getLoginResponse(adminDto)
         return ResponseEntity.ok(loginDto)
@@ -25,7 +25,7 @@ class AdminController(private val service:AdminService) {
         return ResponseEntity.ok(loginDto)
     }
 
-    @PostMapping(path = ["/public/user"])
+    @PostMapping(path = ["/public/admin"])
     fun save(@RequestBody adminDto: AdminDto):AdminDto = service.save(adminDto)
 
     fun deleteAllForTest():Unit = service.deleteAllForTest()

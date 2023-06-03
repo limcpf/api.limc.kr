@@ -2,16 +2,16 @@ spring:
   config:
     activate:
       on-profile: default
-#  datasource:
-#    url: jdbc:postgresql://localhost:55000/postgres
-#    username: postgres
-#    password: postgrespw
-#    driver-class-name: org.postgresql.Driver
   datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
     password: password
+    driver-class-name: org.postgresql.Driver
+#  datasource:
+#    url: jdbc:h2:mem:testdb
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password: password
   jpa:
     hibernate:
       ddl-auto: create
@@ -23,7 +23,7 @@ logging:
   level:
     org.hibernate.sql: debug
     org.hibernate.type: trace
-
+JWT_SECRET_KEY: test
 
 
 
