@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface TopicRepository: JpaRepository<Topic, Long> {
     fun findAllBySite(site:Site, page:Pageable): Page<Topic>
+    fun findAllBySite(site:Site): ArrayList<Topic>
 }

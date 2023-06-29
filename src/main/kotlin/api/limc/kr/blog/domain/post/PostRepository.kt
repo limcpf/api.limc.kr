@@ -13,4 +13,6 @@ interface PostRepository: JpaRepository<Post, Long> {
     fun findAllBySite(site: Site, page:Pageable): Page<Post>
     fun findAllByTopic(topic: Topic, page:Pageable): Page<Post>
     fun findAllBySeries(series: Series, page: Pageable): Page<Post>
+
+    fun countBySite(site: Site): Int
 }

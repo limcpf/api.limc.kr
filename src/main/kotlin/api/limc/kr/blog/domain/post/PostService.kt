@@ -27,7 +27,7 @@ class PostService(private val repository: PostRepository) {
     }.toInfoDto()
 
     fun findAllBySite(siteName: String, pageable: Pageable): Page<PostInfoDto> {
-        val site: Site = siteService.findByName(siteName)
+        val site: Site = siteService.getSite(siteName)
 
         return repository.findAllBySite(site, pageable).map { it.toInfoDto() }
     }
@@ -111,4 +111,8 @@ class PostService(private val repository: PostRepository) {
         if (id == null) throw LimcException(LimcResponseCode.INVALID_ID_PARAMETER)
         return repository.findById(id).orElseThrow { LimcException(LimcResponseCode.NOT_FOUND) }
     }
+
+
+    fun getPostCntBySite(site: Site): Int
+        = repository.countBySite(site)
 }

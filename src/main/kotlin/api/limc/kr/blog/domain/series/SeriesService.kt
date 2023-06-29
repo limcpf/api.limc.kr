@@ -52,4 +52,7 @@ class SeriesService(private val repository: SeriesRepository) {
         return repository.findById(id).orElseThrow { LimcException(LimcResponseCode.NOT_FOUND) }
     }
 
+    fun getSeriesByTopic(topics: List<Long?>): Int
+            = repository.countByTopicIds(topics)
+
 }

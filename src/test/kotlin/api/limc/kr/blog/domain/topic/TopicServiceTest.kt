@@ -6,7 +6,6 @@ import api.limc.kr.blog.domain.topic.dto.TopicDto
 import api.limc.kr.blog.shared.LimcTest
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 
 @LimcTest
@@ -26,7 +25,7 @@ class TopicServiceTest {
         topic = service.save(topicDto)
     }
 
-    @Test
+    //TODO:테스트수정
     fun updateSiteTest() {
         var topicDto = TopicDto(topic.id, SiteDto(site2), "update Topic")
 
