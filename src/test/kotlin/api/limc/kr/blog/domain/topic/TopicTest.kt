@@ -23,7 +23,7 @@ class TopicTest {
     @Test
     @Order(0)
     fun setNameTest() {
-        val topic = Topic(1, site, "test Topic")
+        val topic = Topic(1, site, "Test Topic")
 
         Assertions.assertNotNull(topic)
     }

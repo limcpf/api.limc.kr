@@ -23,7 +23,7 @@ logging:
   level:
     org.hibernate.sql: debug
     org.hibernate.type: trace
-JWT_SECRET_KEY: test
+JWT_SECRET_KEY: Test
 
 
 
@@ -52,4 +52,4 @@ logging:
   level:
     org.hibernate.sql: debug
     org.hibernate.type: trace
-JWT_SECRET_KEY: test
+JWT_SECRET_KEY: Test

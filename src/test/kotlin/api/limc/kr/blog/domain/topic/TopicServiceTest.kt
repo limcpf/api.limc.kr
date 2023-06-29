@@ -22,7 +22,7 @@ class TopicServiceTest {
         val siteDto = SiteDto(site1)
         siteService.save(siteDto)
         siteService.save(SiteDto(site2))
-        val topicDto = TopicDto(siteDto, "test Topic")
+        val topicDto = TopicDto(siteDto, "Test Topic")
         topic = service.save(topicDto)
     }
 

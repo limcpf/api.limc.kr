@@ -23,7 +23,7 @@ class AdminControllerTests {
     @Test
     @Order(0)
     fun saveTest() {
-        val reqDto = AdminDto(null, "test", password)
+        val reqDto = AdminDto(null, "Test", password)
 
         val resDto:AdminDto = adminController.save(reqDto)
 
@@ -46,7 +46,7 @@ class AdminControllerTests {
     @Test
     @Order(1)
     fun loginTest() {
-        val reqDto = AdminDto(null, "test", password)
+        val reqDto = AdminDto(null, "Test", password)
 
         val loginDto = adminController.login(reqDto)
 
@@ -57,7 +57,7 @@ class AdminControllerTests {
     @Test
     @Order(1)
     fun logoutTest() {
-        val reqDto = AdminDto(null, "test", "")
+        val reqDto = AdminDto(null, "Test", "")
         val loginDto = adminController.logout(reqDto)
 
         Assertions.assertNotNull(loginDto)
@@ -67,7 +67,7 @@ class AdminControllerTests {
     @Test
     @Order(2)
     fun loginPwFailTest() {
-        val reqDto = AdminDto(null, "test", "fail")
+        val reqDto = AdminDto(null, "Test", "fail")
 
         Assertions.assertThrowsExactly(
             LimcException(LimcResponseCode.INVALID_PASSWORD_PARAMETER)::class.java

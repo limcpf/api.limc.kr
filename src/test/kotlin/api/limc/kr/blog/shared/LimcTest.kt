@@ -10,7 +10,7 @@ import java.lang.annotation.Inherited
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-@ActiveProfiles("test")
+@ActiveProfiles("Test")
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @MustBeDocumented
