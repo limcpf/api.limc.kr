@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class SiteService(val repository: SiteRepository) {
+
     fun findAll(): List<SiteDto> = repository.findAll().map {it.toDto()}
     fun save(dto: SiteDto): SiteDto = repository.save(Site(dto)).toDto()
     fun findByName(name: String): SiteDto {

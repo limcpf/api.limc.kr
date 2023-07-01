@@ -18,7 +18,6 @@ class SitePrivateController(val service: SiteService) {
     @GetMapping(path = ["/{name}"])
     fun findByName(@PathVariable(name = "name") name: String): SiteDetailDto {
         val site = service.getSite(name)
-        println("왜이래")
         val cntMap = blogFacade.getCntObjInSite(site)
 
         return SiteDetailDto(site.toDto(), cntMap[Domain.TOPIC], cntMap[Domain.SERIES], cntMap[Domain.POST])
