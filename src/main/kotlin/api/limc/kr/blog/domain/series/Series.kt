@@ -5,12 +5,14 @@ import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.BaseTimeEntity
 import api.limc.kr.blog.domain.series.dto.SeriesDto
 import api.limc.kr.blog.domain.series.dto.SeriesListDto
+import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.topic.Topic
 import jakarta.persistence.*
 
 @Entity
 class Series(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id:Long?,
+    @ManyToOne @JoinColumn val site: Site,
     @ManyToOne @JoinColumn val topic: Topic,
     title:String
 ):BaseTimeEntity() {
@@ -26,5 +28,5 @@ class Series(
     fun toDto():SeriesDto = SeriesDto(this)
     fun toListDto():SeriesListDto = SeriesListDto(this)
 
-    constructor(dto: SeriesDto): this(dto.id, Topic(dto.topic), dto.title)
+    constructor(dto: SeriesDto): this(dto.id,Site(dto.site),Topic(dto.topic),  dto.title)
 }

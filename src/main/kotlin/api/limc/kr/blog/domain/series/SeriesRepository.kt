@@ -1,5 +1,7 @@
 package api.limc.kr.blog.domain.series
 
+import api.limc.kr.blog.domain.series.dto.SeriesDto
+import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.topic.Topic
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -14,4 +16,5 @@ interface SeriesRepository:JpaRepository<Series, Long> {
 
     @Query(nativeQuery = true, value = """SELECT count(*) FROM SERIES AS S WHERE S.topic_id IN (:ids)""")
     fun countByTopicIds(@Param("ids") id: List<Long?>): Int
+    fun findAllBySite(site: Site, page: Pageable): Page<SeriesDto>
 }

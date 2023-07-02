@@ -4,6 +4,8 @@ import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.series.dto.SeriesDto
 import api.limc.kr.blog.domain.series.dto.SeriesListDto
+import api.limc.kr.blog.domain.site.Site
+import api.limc.kr.blog.domain.site.SiteService
 import api.limc.kr.blog.domain.topic.Topic
 import api.limc.kr.blog.domain.topic.TopicService
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service
 @Service
 class SeriesService(private val repository: SeriesRepository) {
     @Autowired private lateinit var topicService: TopicService
+    @Autowired private lateinit var siteService: SiteService
 
     fun save(dto: SeriesDto): SeriesDto = repository.save(Series(dto)).toDto()
 
@@ -25,9 +28,12 @@ class SeriesService(private val repository: SeriesRepository) {
 
     fun findAll(page: Pageable): Page<SeriesDto> = repository.findAll(page).map { it.toDto() }
 
+    fun findAllBySite(name: String, page: Pageable): Page<SeriesDto> {
+        return repository.findAllBySite(getSite(name), page)
+    }
     fun findAllByTopic(id: Long, page: Pageable): Page<SeriesListDto>
         = repository.findAllByTopic(getTopic(id), page).map { it.toListDto() }
-
+    private fun getSite(name: String):Site = siteService.getSite(name)
     private fun getTopic(id:Long?): Topic = topicService.getTopic(id)
     fun update(dto: SeriesListDto): SeriesDto {
         var isModify = false
@@ -54,5 +60,6 @@ class SeriesService(private val repository: SeriesRepository) {
 
     fun getSeriesByTopic(topics: List<Long?>): Int
             = repository.countByTopicIds(topics)
+
 
 }
