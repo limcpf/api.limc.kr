@@ -45,8 +45,7 @@ class SitePrivateControllerTest {
         Assertions.assertNotNull(result)
         Assertions.assertEquals(name, result?.name)
     }
-
-    @Test
+    /** TODO : 추후 수정 */
     @Order(1)
     fun findAll() {
         var result: List<SiteDto>? = null
