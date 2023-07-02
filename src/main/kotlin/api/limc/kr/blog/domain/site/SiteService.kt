@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service
 @Service
 class SiteService(val repository: SiteRepository) {
     fun findAll(page: Pageable): Page<SiteDto> = repository.findAll(page).map {it.toDto()}
-    fun save(dto: SiteDto): SiteDto = repository.save(Site(dto)).toDto()
+    fun save(dto: SiteDto): SiteDto {
+        val cnt: Int = repository.countByName(dto.name.uppercase())
+        if(cnt > 0) throw LimcException(SiteResponseCode.DUPLICATE_NAME)
+        return repository.save(Site(dto)).toDto()
+    }
     fun findByName(name: String): SiteDto {
         val site:Site
             = repository.findById(name).orElseThrow { throw LimcException(LimcResponseCode.NOT_FOUND) }
