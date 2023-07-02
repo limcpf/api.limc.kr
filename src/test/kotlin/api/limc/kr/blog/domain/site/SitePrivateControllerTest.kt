@@ -55,8 +55,6 @@ class SitePrivateControllerTest {
             .perform(TestUtil.get(url, accessToken))
             .andExpect{ r: MvcResult -> result = TestUtil.getMvcResult2Obj(r, ArrayList<SiteDto>()::class.java) }
 
-        println(result)
-
         Assertions.assertNotNull(result)
         result?.let { Assertions.assertTrue(it.isNotEmpty()) }
     }
