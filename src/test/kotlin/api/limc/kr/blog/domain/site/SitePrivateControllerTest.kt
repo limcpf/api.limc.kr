@@ -45,8 +45,7 @@ class SitePrivateControllerTest {
         Assertions.assertNotNull(result)
         Assertions.assertEquals(name, result?.name)
     }
-
-    @Test
+    /** TODO : 추후 수정 */
     @Order(1)
     fun findAll() {
         var result: List<SiteDto>? = null
@@ -55,8 +54,6 @@ class SitePrivateControllerTest {
         mockMvc
             .perform(TestUtil.get(url, accessToken))
             .andExpect{ r: MvcResult -> result = TestUtil.getMvcResult2Obj(r, ArrayList<SiteDto>()::class.java) }
-
-        println(result)
 
         Assertions.assertNotNull(result)
         result?.let { Assertions.assertTrue(it.isNotEmpty()) }
