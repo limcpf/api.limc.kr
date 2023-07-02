@@ -36,14 +36,14 @@ class SitePrivateControllerTest {
         var result: SiteDto? = null
         val url = "/private/site"
 
-        val siteDto = SiteDto(name)
+        val siteDto = SiteDto("AMLZ")
 
         mockMvc
             .perform(TestUtil.post(url, siteDto, accessToken))
             .andExpect{ r: MvcResult -> result = TestUtil.getMvcResult2Obj(r, SiteDto::class.java)}
 
         Assertions.assertNotNull(result)
-        Assertions.assertEquals(name, result?.name)
+        Assertions.assertEquals("AMLZ", result?.name)
     }
     /** TODO : 추후 수정 */
     @Order(1)

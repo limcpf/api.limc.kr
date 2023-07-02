@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 @LimcTest
 class SiteServiceTest(@Autowired val service: SiteService) {
-    var name = "DEV"
+    var name = "AMLD"
     @BeforeAll
     fun setup() {
         service.save(SiteDto(name))
