@@ -30,7 +30,7 @@ class BlogFacadeTest() {
         val site: SiteDto = siteService.save(siteDto)
         val topicDto = TopicDto(siteDto, "Test Topic")
         val topic: TopicDto = topicService.save(topicDto)
-        val seriesDto = SeriesDto(null, topic, "dd")
+        val seriesDto = SeriesDto(null, topic, siteDto, "dd")
         val series = seriesService.save(seriesDto)
         val postDto = PostDto(null, site, topic, series, "title", "body")
         postService.save(postDto)

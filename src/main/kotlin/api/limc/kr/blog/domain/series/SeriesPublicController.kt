@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping(path = ["/public/series"])
 class SeriesPublicController(private val service: SeriesService) {
     @GetMapping
-    fun findAll(
+    fun findAllBySite(
+        @PathVariable(value = "name") name:String,
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
-    ): Page<SeriesDto> = service.findAll(page)
+    ): Page<SeriesDto> = service.findAllBySite(name, page)
 
     @GetMapping(path = ["/topic/{id}"])
    fun findAllByTopic(

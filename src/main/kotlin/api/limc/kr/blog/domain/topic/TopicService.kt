@@ -17,6 +17,10 @@ class TopicService(val repository: TopicRepository) {
     fun save(dto: TopicDto): TopicDto = repository.save(Topic(dto)).toDto()
 
     fun findById(id: Long): TopicDto = getTopic(id).toDto()
+
+    fun findAll(page: Pageable): Any {
+        return repository.findAll(page).map {it.toDto()}
+    }
     fun findAllBySite(site: String, page: Pageable): Page<TopicDto> {
         val topics = repository.findAllBySite(getSite(site), page)
 
