@@ -1,7 +1,6 @@
 package api.limc.kr.blog.domain.topic.dto
 
 import api.limc.kr.blog.domain.BaseTimeDto
-import api.limc.kr.blog.domain.topic.Topic
 
 data class TopicDetailDto(
     val id: Long?,

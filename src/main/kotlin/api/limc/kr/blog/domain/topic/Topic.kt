@@ -6,7 +6,6 @@ import api.limc.kr.blog.domain.BaseTimeEntity
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.topic.dto.TopicDto
 import api.limc.kr.blog.domain.topic.dto.TopicInfoDto
-import api.limc.kr.blog.domain.util.dto.SelectDto
 import jakarta.persistence.*
 
 @Entity

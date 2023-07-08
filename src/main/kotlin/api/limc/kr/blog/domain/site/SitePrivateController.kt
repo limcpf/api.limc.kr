@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 class SitePrivateController(val service: SiteService) {
     @Autowired lateinit var blogFacade: BlogFacade
     @GetMapping(path = ["/list"])
-    fun findAllForSelect():List<SelectDto> = service.findAll();
+    fun findAllForSelect():List<SelectDto> = service.findAll()
 
     @GetMapping fun findAll(
         @PageableDefault(size = 10, sort = ["createdAt"], direction = Sort.Direction.DESC) page: Pageable

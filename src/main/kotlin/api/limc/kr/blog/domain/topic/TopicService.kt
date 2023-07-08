@@ -4,7 +4,6 @@ import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.site.SiteService
-import api.limc.kr.blog.domain.topic.dto.TopicDetailDto
 import api.limc.kr.blog.domain.topic.dto.TopicDto
 import api.limc.kr.blog.domain.topic.dto.TopicListDto
 import api.limc.kr.blog.domain.util.dto.SelectDto

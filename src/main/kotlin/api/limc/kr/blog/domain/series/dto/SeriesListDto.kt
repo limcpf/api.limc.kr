@@ -2,7 +2,6 @@ package api.limc.kr.blog.domain.series.dto
 
 import api.limc.kr.blog.domain.BaseTimeDto
 import api.limc.kr.blog.domain.series.Series
-import java.time.LocalDateTime
 
 data class SeriesListDto(
     val id: Long?,
@@ -12,7 +11,7 @@ data class SeriesListDto(
     val title: String
 ): BaseTimeDto() {
     constructor(series:Series): this(series.id, series.site.name, series.topic.id, series.topic.name, series.title) {
-        super.createdAt = series.createdAt;
-        super.updatedAt = series.updatedAt;
+        super.createdAt = series.createdAt
+        super.updatedAt = series.updatedAt
     }
 }
