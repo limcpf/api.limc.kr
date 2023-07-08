@@ -17,7 +17,7 @@ class TopicPrivateController(val service: TopicService) {
     @Autowired lateinit var blogFacade: BlogFacade
 
     @GetMapping(path = ["/list/{name}"])
-    fun findAllForSelect(@PathVariable("name") name:String):List<SelectDto> = service.findAll(name);
+    fun findAllForSelect(@PathVariable("name") name:String):List<SelectDto> = service.findAll(name)
     @GetMapping
     fun findAll(
         @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
@@ -27,7 +27,7 @@ class TopicPrivateController(val service: TopicService) {
     fun findById(@PathVariable("id") id:Long): TopicDetailDto {
         val topic: TopicDto = service.findById(id)
 
-        val intMap:Map<Domain,Int> = blogFacade.getCntObj(topic);
+        val intMap:Map<Domain,Int> = blogFacade.getCntObj(topic)
         return TopicDetailDto(topic, intMap[Domain.SERIES], intMap[Domain.POST])
     }
 
