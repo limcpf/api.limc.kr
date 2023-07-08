@@ -1,7 +1,7 @@
 package api.limc.kr.blog.domain.series
 
 import api.limc.kr.blog.domain.series.dto.SeriesDto
-import api.limc.kr.blog.domain.series.dto.SeriesListDto
+import api.limc.kr.blog.domain.series.dto.SeriesLightDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -24,7 +24,7 @@ class SeriesPublicController(private val service: SeriesService) {
    fun findAllByTopic(
        @PathVariable(value = "id") id:Long,
        @PageableDefault(size = 10, sort = ["id"], direction = Sort.Direction.DESC) page: Pageable
-   ): Page<SeriesListDto> = service.findAllByTopic(id, page)
+   ): Page<SeriesLightDto> = service.findAllByTopic(id, page)
 
     @GetMapping(path = ["/{id}"])
     fun findById(@PathVariable(value = "id") id:Long) = service.findById(id)

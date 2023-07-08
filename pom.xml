@@ -128,12 +128,6 @@
 			<groupId>org.springframework.restdocs</groupId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<artifactId>h2</artifactId>
-			<groupId>com.h2database</groupId>
-			<scope>runtime</scope>
-			<version>2.1.214</version>
-		</dependency>
 	</dependencies>
 	<description>limc.kr blog api server</description>
 	<groupId>api.limc.kr</groupId>

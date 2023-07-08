@@ -7,14 +7,7 @@ spring:
     username: postgres
     password: password
     driver-class-name: org.postgresql.Driver
-#  datasource:
-#    url: jdbc:h2:mem:testdb
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password: password
   jpa:
-    hibernate:
-      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -33,17 +26,12 @@ spring:
   config:
     activate:
       on-profile: test
-  h2:
-    console:
-      enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
-    username: sa
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
     password: password
+    driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate:
-      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
@@ -53,7 +41,6 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
-
 logging:
   level:
     org.hibernate.sql: debug

@@ -4,6 +4,7 @@ import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.BaseTimeEntity
 import api.limc.kr.blog.domain.site.dto.SiteDto
+import api.limc.kr.blog.domain.util.dto.SelectDto
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -23,6 +24,7 @@ class Site(name: String?) : BaseTimeEntity() {
     }
 
     fun toDto(): SiteDto = SiteDto(this.name, this.createdAt, this.updatedAt)
+    fun toSelectDto() = SelectDto(this.name, this.name)
 
     override fun toString(): String {
         return """

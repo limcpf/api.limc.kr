@@ -4,7 +4,7 @@ import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.BaseTimeEntity
 import api.limc.kr.blog.domain.series.dto.SeriesDto
-import api.limc.kr.blog.domain.series.dto.SeriesListDto
+import api.limc.kr.blog.domain.series.dto.SeriesLightDto
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.topic.Topic
 import jakarta.persistence.*
@@ -26,7 +26,7 @@ class Series(
     }
 
     fun toDto():SeriesDto = SeriesDto(this)
-    fun toListDto():SeriesListDto = SeriesListDto(this)
+    fun toListDto():SeriesLightDto = SeriesLightDto(this)
 
     constructor(dto: SeriesDto): this(dto.id,Site(dto.site),Topic(dto.topic),  dto.title)
 }

@@ -6,6 +6,7 @@ import api.limc.kr.blog.domain.BaseTimeEntity
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.topic.dto.TopicDto
 import api.limc.kr.blog.domain.topic.dto.TopicInfoDto
+import api.limc.kr.blog.domain.util.dto.SelectDto
 import jakarta.persistence.*
 
 @Entity
@@ -25,7 +26,7 @@ class Topic(
         return v
     }
 
-    fun toDto() = TopicDto(id, site.toDto(), name)
+    fun toDto() = TopicDto(this)
     fun toInfoDto() = TopicInfoDto(this)
     constructor(dto:TopicDto): this(dto.id, Site(dto.site), dto.name)
 }

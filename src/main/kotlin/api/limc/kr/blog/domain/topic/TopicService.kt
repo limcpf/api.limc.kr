@@ -4,7 +4,10 @@ import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.site.SiteService
+import api.limc.kr.blog.domain.topic.dto.TopicDetailDto
 import api.limc.kr.blog.domain.topic.dto.TopicDto
+import api.limc.kr.blog.domain.topic.dto.TopicListDto
+import api.limc.kr.blog.domain.util.dto.SelectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -18,8 +21,13 @@ class TopicService(val repository: TopicRepository) {
 
     fun findById(id: Long): TopicDto = getTopic(id).toDto()
 
-    fun findAll(page: Pageable): Any {
-        return repository.findAll(page).map {it.toDto()}
+    fun findAll(name: String):List<SelectDto> {
+        val topics = repository.findAllBySite(getSite(name))
+
+        return topics.map { SelectDto(it.name, it.id.toString()) }
+    }
+    fun findAll(page: Pageable): Page<TopicListDto> {
+        return repository.findAll(page).map { TopicListDto(it) }
     }
     fun findAllBySite(site: String, page: Pageable): Page<TopicDto> {
         val topics = repository.findAllBySite(getSite(site), page)
@@ -37,7 +45,7 @@ class TopicService(val repository: TopicRepository) {
         }
 
         // 해당 경우는 빈도수가 낮을것으로 추측함
-        if (topic.site.name != dto.site.name) { // site name 이 변경되는 경우
+        if (topic.site.name != dto.site) { // site name 이 변경되는 경우
             val site: Site
             try {
                 /**
@@ -45,7 +53,7 @@ class TopicService(val repository: TopicRepository) {
                  * 없는 site 인 경우 SiteService 에서 NOT_FOUND 를 throw 해주나, 해당 Exception 을 받아
                  * 해당 서비스에서 다시 throw 하여 response 해준다.
                  */
-                site = getSite(dto.site.name)
+                site = getSite(dto.site)
 
                 topic.site = site
                 isModify = true // 수정 여부가 있다고 판단한다.

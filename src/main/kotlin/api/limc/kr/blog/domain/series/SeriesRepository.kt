@@ -17,4 +17,5 @@ interface SeriesRepository:JpaRepository<Series, Long> {
     @Query(nativeQuery = true, value = """SELECT count(*) FROM SERIES AS S WHERE S.topic_id IN (:ids)""")
     fun countByTopicIds(@Param("ids") id: List<Long?>): Int
     fun findAllBySite(site: Site, page: Pageable): Page<SeriesDto>
+    fun countByTopic(topic: Topic): Int
 }
