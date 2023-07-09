@@ -121,4 +121,7 @@ class PostService(private val repository: PostRepository) {
     fun getPostCntBySite(site: Site): Int
         = repository.countBySite(site)
 
+    fun getPostCntBySeries(series: Series): Int
+        = repository.countBySeries(series)
+
 }

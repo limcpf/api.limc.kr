@@ -1,7 +1,9 @@
 package api.limc.kr.blog.domain.util
 
 import api.limc.kr.blog.domain.post.PostService
+import api.limc.kr.blog.domain.series.Series
 import api.limc.kr.blog.domain.series.SeriesService
+import api.limc.kr.blog.domain.series.dto.SeriesDto
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.site.SiteService
 import api.limc.kr.blog.domain.site.dto.SiteDto
@@ -21,6 +23,10 @@ class BlogFacade {
     @Autowired lateinit var seriesService: SeriesService
     @Autowired lateinit var postService: PostService
 
+    fun getCntObj(seriesDto: SeriesDto):Int {
+        val series = Series(seriesDto)
+        return postService.getPostCntBySeries(series)
+    }
     fun getCntObj(topicDto: TopicDto) : Map<Domain, Int> {
         val intMap:MutableMap<Domain, Int> = EnumMap(Domain::class.java)
         val topic:Topic = topicService.getTopic(topicDto.id)

@@ -2,10 +2,7 @@ package api.limc.kr.blog.domain.series
 
 import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
-import api.limc.kr.blog.domain.series.dto.SeriesDto
-import api.limc.kr.blog.domain.series.dto.SeriesLightDto
-import api.limc.kr.blog.domain.series.dto.SeriesListDto
-import api.limc.kr.blog.domain.series.dto.SeriesPostDto
+import api.limc.kr.blog.domain.series.dto.*
 import api.limc.kr.blog.domain.site.Site
 import api.limc.kr.blog.domain.site.SiteService
 import api.limc.kr.blog.domain.site.dto.SiteDto
@@ -47,10 +44,10 @@ class SeriesService(private val repository: SeriesRepository) {
         = repository.findAllByTopic(getTopic(id), page).map { it.toListDto() }
     private fun getSite(name: String):Site = siteService.getSite(name)
     private fun getTopic(id:Long?): Topic = topicService.getTopic(id)
-    fun update(dto: SeriesLightDto): SeriesDto {
+    fun update(dto: SeriesPatchDto): SeriesDto {
         var isModify = false
 
-        val series = repository.findById(dto.id!!).orElseThrow{
+        val series = repository.findById(dto.id).orElseThrow{
             LimcException(SeriesResponseCode.SERIES_NOT_FOUND)
         }
 

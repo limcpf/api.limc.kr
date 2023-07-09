@@ -16,4 +16,5 @@ interface PostRepository: JpaRepository<Post, Long> {
 
     fun countBySite(site: Site): Int
     fun countByTopic(topic: Topic): Int
+    fun countBySeries(series: Series): Int
 }
