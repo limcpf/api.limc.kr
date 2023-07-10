@@ -9,6 +9,7 @@ import api.limc.kr.blog.domain.site.dto.SiteDto
 import api.limc.kr.blog.domain.topic.Topic
 import api.limc.kr.blog.domain.topic.TopicService
 import api.limc.kr.blog.domain.topic.dto.TopicDto
+import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service
 class SeriesService(private val repository: SeriesRepository) {
     @Autowired private lateinit var topicService: TopicService
     @Autowired private lateinit var siteService: SiteService
-
+    // TODO: service 다 지우고 Facade 호출하기
     fun save(dto: SeriesPostDto): SeriesDto {
         val siteDto = SiteDto(dto.site)
         val topicDto = TopicDto(dto.topic, dto.site, "생성용")
@@ -44,6 +45,7 @@ class SeriesService(private val repository: SeriesRepository) {
         = repository.findAllByTopic(getTopic(id), page).map { it.toListDto() }
     private fun getSite(name: String):Site = siteService.getSite(name)
     private fun getTopic(id:Long?): Topic = topicService.getTopic(id)
+    @Transactional
     fun update(dto: SeriesPatchDto): SeriesDto {
         var isModify = false
 
@@ -54,6 +56,10 @@ class SeriesService(private val repository: SeriesRepository) {
         if(series.title != dto.title) {
             series.title = dto.title
             isModify = true
+        }
+
+        if(series.site.name != dto.site || series.topic.id != dto.topic) {
+
         }
 
         if(isModify) return repository.save(series).toDto()

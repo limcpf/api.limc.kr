@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class BlogFacade {
+class BlogControllerFacade {
 
     @Autowired lateinit var siteService: SiteService
     @Autowired lateinit var topicService: TopicService
