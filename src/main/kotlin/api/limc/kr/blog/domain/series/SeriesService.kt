@@ -9,6 +9,7 @@ import api.limc.kr.blog.domain.site.dto.SiteDto
 import api.limc.kr.blog.domain.topic.Topic
 import api.limc.kr.blog.domain.topic.TopicService
 import api.limc.kr.blog.domain.topic.dto.TopicDto
+import api.limc.kr.blog.domain.util.BlogServiceFacade
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -17,9 +18,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class SeriesService(private val repository: SeriesRepository) {
-    @Autowired private lateinit var topicService: TopicService
-    @Autowired private lateinit var siteService: SiteService
-    // TODO: service 다 지우고 Facade 호출하기
+    @Autowired private lateinit var blogServiceFacade: BlogServiceFacade;
+
     fun save(dto: SeriesPostDto): SeriesDto {
         val siteDto = SiteDto(dto.site)
         val topicDto = TopicDto(dto.topic, dto.site, "생성용")
@@ -39,12 +39,13 @@ class SeriesService(private val repository: SeriesRepository) {
     }
 
     fun findAllBySite(name: String, page: Pageable): Page<SeriesDto> {
-        return repository.findAllBySite(getSite(name), page)
+        val site: Site = blogServiceFacade.getSite(name)
+        return repository.findAllBySite(site, page)
     }
-    fun findAllByTopic(id: Long, page: Pageable): Page<SeriesLightDto>
-        = repository.findAllByTopic(getTopic(id), page).map { it.toListDto() }
-    private fun getSite(name: String):Site = siteService.getSite(name)
-    private fun getTopic(id:Long?): Topic = topicService.getTopic(id)
+    fun findAllByTopic(id: Long, page: Pageable): Page<SeriesLightDto> {
+        val topic:Topic = blogServiceFacade.getTopic(id)
+        return repository.findAllByTopic(topic, page).map { it.toListDto() }
+    }
     @Transactional
     fun update(dto: SeriesPatchDto): SeriesDto {
         var isModify = false
@@ -59,7 +60,10 @@ class SeriesService(private val repository: SeriesRepository) {
         }
 
         if(series.site.name != dto.site || series.topic.id != dto.topic) {
-
+            val topic: Topic = blogServiceFacade.getTopic(dto.topic)
+            val isUpdated = blogServiceFacade.updateFKForSeries(series.id!!, topic.site.name!!, topic.id!!)
+            if(!isUpdated) throw LimcException(SeriesResponseCode.INVALID_FK_UPDATE_POST)
+            isModify = true
         }
 
         if(isModify) return repository.save(series).toDto()
