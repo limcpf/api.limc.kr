@@ -15,7 +15,8 @@ class Post(
     @ManyToOne @JoinColumn var topic: Topic,
     @ManyToOne @JoinColumn var series: Series?,
     @Column(length = 255) var title: String,
-    @Column(columnDefinition="TEXT") var content: String
+    @Column(columnDefinition="TEXT") var content: String,
+    @Column var isPublished: Boolean
 ):BaseTimeEntity() {
     fun toDto(): PostDto = PostDto(this)
     fun toInfoDto(): PostInfoDto = PostInfoDto(this)
@@ -25,7 +26,8 @@ class Post(
         Topic(dto.topic),
         dto.series?.let { Series(it) },
         dto.title,
-        dto.content
+        dto.content,
+        dto.isPublished
     ) {
         if(dto.id != null) id = dto.id
     }

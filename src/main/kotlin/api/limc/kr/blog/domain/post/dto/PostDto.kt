@@ -12,7 +12,8 @@ data class PostDto(
     val topic: TopicDto,
     val series: SeriesDto?,
     val title: String,
-    val content: String
+    val content: String,
+    val isPublished: Boolean
     ): BaseTimeDto() {
         constructor(post: Post): this(
             post.id,
@@ -20,7 +21,8 @@ data class PostDto(
             post.topic.toDto(),
             post.series?.toDto(),
             post.title,
-            post.content
+            post.content,
+            post.isPublished
         ) {
             this.createdAt = post.createdAt
             this.updatedAt = post.updatedAt
