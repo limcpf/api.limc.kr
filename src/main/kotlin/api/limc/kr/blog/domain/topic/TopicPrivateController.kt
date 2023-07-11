@@ -2,7 +2,7 @@ package api.limc.kr.blog.domain.topic
 
 import api.limc.kr.blog.domain.topic.dto.TopicDetailDto
 import api.limc.kr.blog.domain.topic.dto.TopicDto
-import api.limc.kr.blog.domain.util.BlogFacade
+import api.limc.kr.blog.domain.util.BlogControllerFacade
 import api.limc.kr.blog.domain.util.dto.SelectDto
 import api.limc.kr.blog.shared.enums.Domain
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(path = ["/private/topic"])
 class TopicPrivateController(val service: TopicService) {
-    @Autowired lateinit var blogFacade: BlogFacade
+    @Autowired lateinit var blogControllerFacade: BlogControllerFacade
 
     @GetMapping(path = ["/list/{name}"])
     fun findAllForSelect(@PathVariable("name") name:String):List<SelectDto> = service.findAll(name)
@@ -27,7 +27,7 @@ class TopicPrivateController(val service: TopicService) {
     fun findById(@PathVariable("id") id:Long): TopicDetailDto {
         val topic: TopicDto = service.findById(id)
 
-        val intMap:Map<Domain,Int> = blogFacade.getCntObj(topic)
+        val intMap:Map<Domain,Int> = blogControllerFacade.getCntObj(topic)
         return TopicDetailDto(topic, intMap[Domain.SERIES], intMap[Domain.POST])
     }
 

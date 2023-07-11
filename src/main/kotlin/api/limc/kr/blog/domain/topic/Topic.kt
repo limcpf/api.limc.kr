@@ -11,7 +11,7 @@ import jakarta.persistence.*
 @Entity
 class Topic(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long?,
+    var id: Long,
     @ManyToOne @JoinColumn(name = "site_name")
     var site:Site,
     name:String?
@@ -27,5 +27,7 @@ class Topic(
 
     fun toDto() = TopicDto(this)
     fun toInfoDto() = TopicInfoDto(this)
-    constructor(dto:TopicDto): this(dto.id, Site(dto.site), dto.name)
+    constructor(dto:TopicDto): this(0, Site(dto.site), dto.name) {
+        if(dto.id != null) this.id = dto.id
+    }
 }

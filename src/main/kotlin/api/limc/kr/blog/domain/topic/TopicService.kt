@@ -3,9 +3,9 @@ package api.limc.kr.blog.domain.topic
 import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.site.Site
-import api.limc.kr.blog.domain.site.SiteService
 import api.limc.kr.blog.domain.topic.dto.TopicDto
 import api.limc.kr.blog.domain.topic.dto.TopicListDto
+import api.limc.kr.blog.domain.util.BlogServiceFacade
 import api.limc.kr.blog.domain.util.dto.SelectDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 @Service
 class TopicService(val repository: TopicRepository) {
     @Autowired
-    lateinit var siteService: SiteService
+    private lateinit var blogServiceFacade: BlogServiceFacade
     fun save(dto: TopicDto): TopicDto = repository.save(Topic(dto)).toDto()
 
     fun findById(id: Long): TopicDto = getTopic(id).toDto()
@@ -67,7 +67,7 @@ class TopicService(val repository: TopicRepository) {
 
     fun delete(id: Long) = repository.deleteById(id)
 
-    private fun getSite(name: String): Site = siteService.getSite(name)
+    private fun getSite(name: String): Site = blogServiceFacade.getSite(name)
 
     fun getTopic(id: Long?): Topic {
         if (id == null) throw LimcException(LimcResponseCode.INVALID_ID_PARAMETER)

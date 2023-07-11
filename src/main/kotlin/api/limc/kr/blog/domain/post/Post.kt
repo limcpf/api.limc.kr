@@ -10,7 +10,7 @@ import jakarta.persistence.*
 
 @Entity
 class Post(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long,
     @ManyToOne @JoinColumn var site: Site,
     @ManyToOne @JoinColumn var topic: Topic,
     @ManyToOne @JoinColumn var series: Series?,
@@ -20,11 +20,13 @@ class Post(
     fun toDto(): PostDto = PostDto(this)
     fun toInfoDto(): PostInfoDto = PostInfoDto(this)
     constructor(dto: PostDto): this(
-        dto.id,
+        0,
         Site(dto.site),
         Topic(dto.topic),
         dto.series?.let { Series(it) },
         dto.title,
         dto.content
-    )
+    ) {
+        if(dto.id != null) id = dto.id
+    }
 }
