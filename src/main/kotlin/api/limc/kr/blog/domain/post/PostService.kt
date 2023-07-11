@@ -3,16 +3,11 @@ package api.limc.kr.blog.domain.post
 import api.limc.kr.blog.config.exception.LimcException
 import api.limc.kr.blog.config.exception.enums.LimcResponseCode
 import api.limc.kr.blog.domain.post.dto.PostDetailDto
-import api.limc.kr.blog.domain.post.dto.PostDto
 import api.limc.kr.blog.domain.post.dto.PostInfoDto
 import api.limc.kr.blog.domain.post.dto.PostListDto
 import api.limc.kr.blog.domain.series.Series
-import api.limc.kr.blog.domain.series.SeriesService
-import api.limc.kr.blog.domain.series.dto.SeriesListDto
 import api.limc.kr.blog.domain.site.Site
-import api.limc.kr.blog.domain.site.SiteService
 import api.limc.kr.blog.domain.topic.Topic
-import api.limc.kr.blog.domain.topic.TopicService
 import api.limc.kr.blog.domain.util.BlogServiceFacade
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Page
@@ -21,9 +16,20 @@ import org.springframework.stereotype.Service
 
 @Service
 class PostService(private val repository: PostRepository) {
-    @Autowired private lateinit var blogServiceFacade: BlogServiceFacade;
+    @Autowired private lateinit var blogServiceFacade: BlogServiceFacade
 
-    fun save(dto: PostDto): PostInfoDto = repository.save(Post(dto)).toInfoDto()
+    fun save(dto: PostDetailDto): PostDetailDto {
+        val series: Series? = if(dto.series != null) blogServiceFacade.getSeries(dto.series!!) else null
+
+        val post:Post = if(series != null) {
+            Post(0, series.site, series.topic, series, dto.title, dto.content, false)
+        } else {
+            val topic:Topic = blogServiceFacade.getTopic(dto.topic)
+            Post(0, topic.site, topic, null, dto.title, dto.content, false)
+        }
+
+        return PostDetailDto(repository.save(post))
+    }
     fun findById(id: Long): PostInfoDto = repository.findById(id).orElseThrow {
         LimcException(LimcResponseCode.NOT_FOUND)
     }.toInfoDto()
@@ -61,42 +67,19 @@ class PostService(private val repository: PostRepository) {
             || post.topic.id != postDto.topic
             || post.site.name != postDto.site
         ) {
-            lateinit var series: Series
+            val series: Series? = if(postDto.series != null) blogServiceFacade.getSeries(postDto.series!!) else null
 
-            try {
-                series = blogServiceFacade.getSeries(postDto.series!!)
-            } catch (e: LimcException) {
-                if(e.code == LimcResponseCode.NOT_FOUND.code) {
-                    throw LimcException(PostResponseCode.SERIES_NOT_FOUND)
-                } else {
-                    throw e
-                }
+            if(series != null) {
+                post.series = series
+                post.topic = series.topic
+                post.site = series.site
+            } else {
+                val topic: Topic = blogServiceFacade.getTopic(postDto.topic)
+                post.topic = topic
+                post.site = topic.site
             }
-
             isModify = true
-
-            post.series = series
-            post.topic = series.topic
-            post.site = series.topic.site
-        } else if(post.topic.id != postDto.topic) {
-            lateinit var topic: Topic
-
-            try {
-                topic = blogServiceFacade.getTopic(postDto.topic)
-            } catch (e: LimcException) {
-                if(e.code == LimcResponseCode.NOT_FOUND.code) {
-                    throw LimcException(PostResponseCode.TOPIC_NOT_FOUND)
-                } else {
-                    throw e
-                }
-            }
-
-            isModify = true
-
-            post.topic = topic
-            post.site = topic.site
         }
-
         // post 제목 수정
         if(post.title != postDto.title) {
             isModify = true
@@ -128,5 +111,4 @@ class PostService(private val repository: PostRepository) {
 
     fun getPostCntBySeries(series: Series): Int
         = repository.countBySeries(series)
-
 }

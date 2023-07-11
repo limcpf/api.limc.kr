@@ -1,7 +1,6 @@
 package api.limc.kr.blog.domain.post
 
 import api.limc.kr.blog.domain.post.dto.PostDetailDto
-import api.limc.kr.blog.domain.post.dto.PostDto
 import api.limc.kr.blog.domain.post.dto.PostListDto
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -18,7 +17,7 @@ class PostPrivateController(private val service: PostService) {
     ): Page<PostListDto> {
         return service.findAll(page)
     }
-    @PostMapping fun save(@RequestBody dto: PostDto) = service.save(dto)
+    @PostMapping fun save(@RequestBody dto: PostDetailDto) = service.save(dto)
     @PatchMapping fun update(@RequestBody dto: PostDetailDto) = service.update(dto)
     @DeleteMapping(path = ["/{id}"])
     fun delete(@PathVariable(name = "id") id:Long) = service.delete(id)
